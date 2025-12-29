@@ -428,7 +428,7 @@ function App() {
                       </div>
                       <div>
                         <h4 className="text-lg font-bold text-white mb-1">Phone</h4>
-                        <p className="text-stone-300">+91 123 456 7890<br />+91 098 765 4321</p>
+                        <p className="text-stone-300">+91 999 982 6529<br />+91 098 765 4321</p>
                       </div>
                     </div>
                   </div>
