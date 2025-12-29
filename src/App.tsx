@@ -20,7 +20,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Sun className="w-8 h-8 text-orange-500" />
-              <span className="text-xl font-bold text-white">SolarHeat<span className="text-orange-500">.</span></span>
+              <span className="text-xl font-bold text-white">Ellipsol<span className="text-orange-500">.</span></span>
             </div>
             <div className="hidden md:flex space-x-8">
               <button onClick={() => scrollToSection('home')} className="text-stone-200 hover:text-orange-500 transition-colors">Home</button>
@@ -72,7 +72,7 @@ function App() {
               onClick={() => scrollToSection('assessment')}
               className="group px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold text-lg hover:shadow-2xl hover:shadow-orange-500/50 transition-all transform hover:scale-105 flex items-center gap-2"
             >
-              Get Free Assessment
+              Get 1 Free Assessment
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
 
@@ -132,7 +132,7 @@ function App() {
                 <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-orange-500/30">
                   <Zap className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-stone-900 mb-2">50% Fuel Savings</h3>
+                <h3 className="text-xl font-bold text-stone-900 mb-2">50% Fuel Bill Savings</h3>
                 <p className="text-stone-600">Immediate cost reduction</p>
               </div>
             </div>
@@ -163,7 +163,7 @@ function App() {
                     </div>
                     <div>
                       <h3 className="text-3xl font-bold text-stone-900 mb-2">Solar Concentration</h3>
-                      <p className="text-stone-600 text-lg">Parabolic concentrators capture and focus sunlight to generate intense heat using air-based inflatable structures. The concentrated solar energy reaches temperatures suitable for industrial applications.</p>
+                      <p className="text-stone-600 text-lg">Parabolic concentrators capture and focus sunlight to generate intense heat using air-based inflatable structures. The concentrated solar energy reaches temperatures suitable for majority industrial applications.</p>
                     </div>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ function App() {
                     </div>
                     <div>
                       <h3 className="text-3xl font-bold text-stone-900 mb-2">Heat Transfer</h3>
-                      <p className="text-stone-600 text-lg">Concentrated solar energy efficiently heats a transfer medium, which produces high-temperature steam or hot water. This process is consistent, reliable, and requires minimal maintenance compared to traditional boilers.</p>
+                      <p className="text-stone-600 text-lg">Concentrated solar energy efficiently heats a transfer medium, which produces high-temperature steam or hot fluid. This process is consistent, reliable, and requires minimal maintenance.</p>
                     </div>
                   </div>
                 </div>
@@ -219,7 +219,7 @@ function App() {
                     </div>
                     <div>
                       <h3 className="text-3xl font-bold text-stone-900 mb-2">Steam Generation</h3>
-                      <p className="text-stone-600 text-lg">The heated transfer medium generates industrial-grade steam at the exact specifications needed for your processes. The system seamlessly integrates with existing infrastructure, reducing fuel consumption by up to 50%.</p>
+                      <p className="text-stone-600 text-lg">The heated transfer medium is circulated to heat exchanger to generate industrial-grade steam at the exact specifications needed for your processes. The system seamlessly integrates with existing infrastructure, reducing fuel consumption by up to 50%.</p>
                     </div>
                   </div>
                 </div>
@@ -261,7 +261,7 @@ function App() {
                     </div>
                     <div>
                       <h3 className="text-3xl font-bold text-stone-900 mb-2">Technology in Action</h3>
-                      <p className="text-stone-600 text-lg">Watch our revolutionary solar concentrator technology in action. See how the air-based system operates efficiently in real industrial environments, delivering consistent, clean heat with zero emissions and maximum cost savings.</p>
+                      <p className="text-stone-600 text-lg">Watch our revolutionary solar concentrator technology in action. See how the air-based structure proves to be an easy to deploy & operates system in real industrial environments, delivering consistent, clean heat with zero emissions and maximum cost savings.</p>
                     </div>
                   </div>
                 </div>
@@ -276,15 +276,15 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                   <h4 className="text-xl font-bold text-orange-400 mb-2">Ultra-Lightweight</h4>
-                  <p className="text-stone-300">Inflatable structures reduce installation costs and structural requirements</p>
+                  <p className="text-stone-300">Air filled structure reduces installation costs and time</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                   <h4 className="text-xl font-bold text-orange-400 mb-2">Scalable</h4>
-                  <p className="text-stone-300">Easily expand capacity as your industrial heat needs grow</p>
+                  <p className="text-stone-300">Easily add capacity as your industrial heat needs grow</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                   <h4 className="text-xl font-bold text-orange-400 mb-2">Cost-Effective</h4>
-                  <p className="text-stone-300">Lower capital and operational costs compared to traditional systems</p>
+                  <p className="text-stone-300">Beats the unit economics of coal for heat generation</p>
                 </div>
               </div>
             </div>
@@ -301,7 +301,7 @@ function App() {
               Free Energy <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">Savings Assessment</span>
             </h2>
             <p className="text-xl text-stone-600 max-w-3xl mx-auto">
-              Discover how much you can save by switching to solar industrial heat. Book your complimentary assessment today.
+              Discover how much you can save by switching to solar industrial heat. Book your 1 complimentary assessment today.
             </p>
           </div>
 
@@ -320,7 +320,7 @@ function App() {
                 </div>
                 <div className="text-center p-6 bg-stone-50 rounded-2xl">
                   <div className="text-4xl font-bold text-orange-500 mb-2">50%</div>
-                  <div className="text-stone-600">Average Fuel Savings</div>
+                  <div className="text-stone-600">Yearly Fuel Savings</div>
                 </div>
               </div>
 
@@ -337,19 +337,19 @@ function App() {
                     <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-sm">✓</span>
                     </div>
-                    <span>Custom solar heat system design for your facility</span>
+                    <span>Energy Leakage points in your plant</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-sm">✓</span>
                     </div>
-                    <span>Projected savings and ROI calculation</span>
+                    <span>Custom Savings plan on adopting solar heat system</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-sm">✓</span>
                     </div>
-                    <span>Implementation timeline and investment breakdown</span>
+                    <span></span>
                   </li>
                 </ul>
               </div>
@@ -367,7 +367,7 @@ function App() {
                 }}
               >
                 <span className="flex items-center justify-center gap-3">
-                  Book Free Assessment Now
+                  Run Your Savings Assessment
                   <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
                 </span>
               </a>
@@ -408,7 +408,7 @@ function App() {
                       </div>
                       <div>
                         <h4 className="text-lg font-bold text-white mb-1">Address</h4>
-                        <p className="text-stone-300">123 Solar Park Avenue<br />Industrial Zone, Tech City<br />PIN: 560001</p>
+                        <p className="text-stone-300">Hartron, Plot No-1, UV Phase-I, Dundahera, Gurugram, Haryana 122016</p>
                       </div>
                     </div>
 
@@ -418,7 +418,7 @@ function App() {
                       </div>
                       <div>
                         <h4 className="text-lg font-bold text-white mb-1">Email</h4>
-                        <p className="text-stone-300">contact@solarheat.com<br />sales@solarheat.com</p>
+                        <p className="text-stone-300">info@ellipsol.com</p>
                       </div>
                     </div>
 
@@ -440,11 +440,11 @@ function App() {
                 <div className="space-y-3 text-stone-600">
                   <div className="flex justify-between py-2 border-b border-stone-200">
                     <span>Monday - Friday</span>
-                    <span className="font-semibold">9:00 AM - 6:00 PM</span>
+                    <span className="font-semibold">10:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-stone-200">
                     <span>Saturday</span>
-                    <span className="font-semibold">10:00 AM - 4:00 PM</span>
+                    <span className="font-semibold">10:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between py-2">
                     <span>Sunday</span>
@@ -456,7 +456,7 @@ function App() {
 
             <div className="space-y-6">
               <div className="bg-white rounded-3xl p-10 shadow-lg border border-stone-200">
-                <h3 className="text-2xl font-bold text-stone-900 mb-6">Schedule an Energy Audit</h3>
+                <h3 className="text-2xl font-bold text-stone-900 mb-6">Schedule your Energy Audit</h3>
 
                 <div className="space-y-4">
                   <a
@@ -517,12 +517,12 @@ function App() {
                 <div className="absolute bottom-0 right-0 w-48 h-48 bg-orange-500/20 rounded-full blur-2xl"></div>
                 <div className="relative z-10">
                   <h3 className="text-xl font-bold text-white mb-4">Ready to Slash Your Energy Costs?</h3>
-                  <p className="text-stone-300 mb-6">Join hundreds of industries already saving with our solar heat technology.</p>
+                  <p className="text-stone-300 mb-6">Join hundreds of industries already saving with solar heat.</p>
                   <button
                     onClick={() => scrollToSection('assessment')}
                     className="w-full py-4 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-colors"
                   >
-                    Book Free Assessment
+                    Book first Free Assessment
                   </button>
                 </div>
               </div>
@@ -558,23 +558,23 @@ function App() {
                 <li>Solar Steam Generation</li>
                 <li>Hot Water Systems</li>
                 <li>Energy Audits</li>
-                <li>Custom Solutions</li>
+                <li>Custom Energy Solutions</li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold mb-4">Connect</h4>
               <ul className="space-y-2 text-stone-400 text-sm">
-                <li>contact@solarheat.com</li>
-                <li>+91 123 456 7890</li>
-                <li>123 Solar Park Avenue</li>
-                <li>Industrial Zone, Tech City</li>
+                <li>info@ellipsol.com</li>
+                <li>+91 9999826529</li>
+                <li>Hartron, Plot No-1</li>
+                <li>UV Phase-I, Dundahera, Gurugram</li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-stone-800 pt-8 text-center text-stone-500 text-sm">
-            <p>&copy; 2024 SolarHeat. All rights reserved. Powered by renewable energy.</p>
+            <p>&copy; 2023 Ellipsol. All rights reserved. Powered by Solar.</p>
           </div>
         </div>
       </footer>
