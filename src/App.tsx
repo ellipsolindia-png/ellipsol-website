@@ -84,8 +84,6 @@ function App() {
             </button>
           </div>
         </div>
-
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-stone-50 h-32"></div>
       </section>
 
       <section className="py-20 bg-gradient-to-b from-stone-50 to-white relative overflow-hidden">
