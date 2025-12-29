@@ -169,7 +169,7 @@ function App() {
                 </div>
               </div>
               <div className="relative group overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-stone-200 order-1 md:order-2">
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-0/20 to-orange-0/20 group-hover:from-orange-500/30 group-hover:to-orange-600/30 transition-all z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 to-orange-600/0 group-hover:from-orange-500/30 group-hover:to-orange-600/30 transition-all z-10"></div>
                 <img
                   src={config.images.solarConcentration}
                   alt="Solar Concentration"
