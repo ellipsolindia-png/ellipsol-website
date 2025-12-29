@@ -349,7 +349,7 @@ function App() {
                     <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-sm">✓</span>
                     </div>
-                    <span></span>
+                    <span>Overview of Yearly savings and ROI</span>
                   </li>
                 </ul>
               </div>
@@ -537,7 +537,7 @@ function App() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Sun className="w-6 h-6 text-orange-500" />
-                <span className="text-lg font-bold">SolarHeat<span className="text-orange-500">.</span></span>
+                <span className="text-lg font-bold">Ellipsol<span className="text-orange-500">.</span></span>
               </div>
               <p className="text-stone-400 text-sm">Ultra-low cost industrial heat powered by air-based solar concentrator technology.</p>
             </div>
