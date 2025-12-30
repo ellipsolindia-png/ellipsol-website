@@ -1,9 +1,27 @@
-import { useState } from 'react';
-import { Sun, Zap, Factory, TrendingDown, ArrowRight, MapPin, Mail, Phone, Calendar, Play } from 'lucide-react';
+import { useRef, useState } from 'react';
+import {
+  Sun,
+  Zap,
+  Factory,
+  TrendingDown,
+  ArrowRight,
+  MapPin,
+  Mail,
+  Phone,
+  Calendar,
+  Play,
+  Pause, // ✅ NEW: pause icon for toggle
+} from 'lucide-react';
 import { config, getGoogleFormUrl, getGoogleCalendarUrl } from './config';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
+
+  // ✅ NEW: video reference to control play/pause
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // ✅ NEW: track play state for button toggle
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -13,26 +31,81 @@ function App() {
     }
   };
 
+  // ✅ NEW: play/pause toggle handler
+  const toggleVideoPlay = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      try {
+        await video.play();
+        setIsVideoPlaying(true);
+      } catch (err) {
+        console.error('Video play blocked by browser:', err);
+      }
+    } else {
+      video.pause();
+      setIsVideoPlaying(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-stone-50 to-stone-100">
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-orange-500/20">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Sun className="w-8 h-8 text-orange-500" />
-              <span className="text-xl font-bold text-white">Ellipsol<span className="text-orange-500">.</span></span>
+            {/* ✅ CHANGED: navbar logo as JPG from public folder */}
+            <div className="flex items-center space-x-3">
+              {/* Put your logo JPG here: /public/logo.jpg */}
+              <img
+                src="/logo.png"
+                alt="Ellipsol Logo"
+                className="h-8 w-auto object-contain"
+                onError={(e) => {
+                  // If logo missing, hide image to avoid broken icon
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+              />
+              <span className="text-xl font-bold text-white">
+                Ellipsol<span className="text-orange-500">.</span>
+              </span>
             </div>
+
             <div className="hidden md:flex space-x-8">
-              <button onClick={() => scrollToSection('home')} className="text-stone-200 hover:text-orange-500 transition-colors">Home</button>
-              <button onClick={() => scrollToSection('technology')} className="text-stone-200 hover:text-orange-500 transition-colors">Technology</button>
-              <button onClick={() => scrollToSection('assessment')} className="text-stone-200 hover:text-orange-500 transition-colors">Assessment</button>
-              <button onClick={() => scrollToSection('contact')} className="text-stone-200 hover:text-orange-500 transition-colors">Contact</button>
+              <button
+                onClick={() => scrollToSection('home')}
+                className="text-stone-200 hover:text-orange-500 transition-colors"
+              >
+                Home
+              </button>
+              <button
+                onClick={() => scrollToSection('technology')}
+                className="text-stone-200 hover:text-orange-500 transition-colors"
+              >
+                Technology
+              </button>
+              <button
+                onClick={() => scrollToSection('assessment')}
+                className="text-stone-200 hover:text-orange-500 transition-colors"
+              >
+                Assessment
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="text-stone-200 hover:text-orange-500 transition-colors"
+              >
+                Contact
+              </button>
             </div>
           </div>
         </div>
       </nav>
 
-      <section id="home" className="min-h-screen relative flex items-center justify-center overflow-hidden pt-20">
+      <section
+        id="home"
+        className="min-h-screen relative flex items-center justify-center overflow-hidden pt-20"
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-black via-stone-900 to-orange-950">
           <img
             src={config.images.heroBackground}
@@ -64,7 +137,8 @@ function App() {
           </p>
 
           <p className="text-lg text-stone-400 mb-12 max-w-2xl mx-auto">
-            Delivering industrial grade steam and hot water at costs lower than fossil fuel boilers
+            Delivering industrial grade steam and hot water at costs lower than
+            fossil fuel boilers
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -97,7 +171,9 @@ function App() {
                 <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-orange-500/30">
                   <TrendingDown className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-stone-900 mb-2">Lowest Cost Heat</h3>
+                <h3 className="text-xl font-bold text-stone-900 mb-2">
+                  Lowest Cost Heat
+                </h3>
                 <p className="text-stone-600">Cheaper than fossil fuels</p>
               </div>
             </div>
@@ -108,7 +184,9 @@ function App() {
                 <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-orange-500/30">
                   <Sun className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-stone-900 mb-2">Air-Based SolarTech</h3>
+                <h3 className="text-xl font-bold text-stone-900 mb-2">
+                  Air-Based SolarTech
+                </h3>
                 <p className="text-stone-600">Ultra-light, inflatable system</p>
               </div>
             </div>
@@ -119,7 +197,9 @@ function App() {
                 <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-orange-500/30">
                   <Factory className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-stone-900 mb-2">Industry Ready</h3>
+                <h3 className="text-xl font-bold text-stone-900 mb-2">
+                  Industry Ready
+                </h3>
                 <p className="text-stone-600">Built for factories</p>
               </div>
             </div>
@@ -130,7 +210,9 @@ function App() {
                 <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-orange-500/30">
                   <Zap className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-stone-900 mb-2">50% Fuel Bill Savings</h3>
+                <h3 className="text-xl font-bold text-stone-900 mb-2">
+                  50% Fuel Bill Savings
+                </h3>
                 <p className="text-stone-600">Immediate cost reduction</p>
               </div>
             </div>
@@ -138,16 +220,23 @@ function App() {
         </div>
       </section>
 
-      <section id="technology" className="py-20 bg-gradient-to-b from-white to-stone-50 relative overflow-hidden">
+      <section
+        id="technology"
+        className="py-20 bg-gradient-to-b from-white to-stone-50 relative overflow-hidden"
+      >
         <div className="absolute top-20 right-10 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
 
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-bold text-stone-900 mb-6">
-              How It <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">Works</span>
+              How It{' '}
+              <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+                Works
+              </span>
             </h2>
             <p className="text-xl text-stone-600 max-w-3xl mx-auto">
-              Revolutionary air-based solar concentrator technology delivering ultra-low cost industrial heat
+              Revolutionary air-based solar concentrator technology delivering
+              ultra-low cost industrial heat
             </p>
           </div>
 
@@ -160,8 +249,16 @@ function App() {
                       <span className="text-white font-bold text-xl">1</span>
                     </div>
                     <div>
-                      <h3 className="text-3xl font-bold text-stone-900 mb-2">Solar Concentration</h3>
-                      <p className="text-stone-600 text-lg">Parabolic concentrators capture and focus sunlight to generate intense heat using air-based inflatable structures. The concentrated solar energy reaches temperatures suitable for majority industrial applications.</p>
+                      <h3 className="text-3xl font-bold text-stone-900 mb-2">
+                        Solar Concentration
+                      </h3>
+                      <p className="text-stone-600 text-lg">
+                        Parabolic concentrators capture and focus sunlight to
+                        generate intense heat using air-based inflatable
+                        structures. The concentrated solar energy reaches
+                        temperatures suitable for majority industrial
+                        applications.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -174,7 +271,8 @@ function App() {
                   className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.parentElement!.innerHTML = '<div class="w-full aspect-video flex items-center justify-center bg-gradient-to-br from-orange-500/20 to-stone-400"><p class="text-stone-600 text-center p-4">Solar Concentration Image</p></div>';
+                    target.parentElement!.innerHTML =
+                      '<div class="w-full aspect-video flex items-center justify-center bg-gradient-to-br from-orange-500/20 to-stone-400"><p class="text-stone-600 text-center p-4">Solar Concentration Image</p></div>';
                   }}
                 />
               </div>
@@ -189,7 +287,8 @@ function App() {
                   className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.parentElement!.innerHTML = '<div class="w-full aspect-video flex items-center justify-center bg-gradient-to-br from-orange-500/20 to-stone-400"><p class="text-stone-600 text-center p-4">Heat Transfer Image</p></div>';
+                    target.parentElement!.innerHTML =
+                      '<div class="w-full aspect-video flex items-center justify-center bg-gradient-to-br from-orange-500/20 to-stone-400"><p class="text-stone-600 text-center p-4">Heat Transfer Image</p></div>';
                   }}
                 />
               </div>
@@ -200,8 +299,15 @@ function App() {
                       <span className="text-white font-bold text-xl">2</span>
                     </div>
                     <div>
-                      <h3 className="text-3xl font-bold text-stone-900 mb-2">Heat Transfer</h3>
-                      <p className="text-stone-600 text-lg">Concentrated solar energy efficiently heats a transfer medium, which produces high-temperature steam or hot fluid. This process is consistent, reliable, and requires minimal maintenance.</p>
+                      <h3 className="text-3xl font-bold text-stone-900 mb-2">
+                        Heat Transfer
+                      </h3>
+                      <p className="text-stone-600 text-lg">
+                        Concentrated solar energy efficiently heats a transfer
+                        medium, which produces high-temperature steam or hot
+                        fluid. This process is consistent, reliable, and
+                        requires minimal maintenance.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -216,8 +322,16 @@ function App() {
                       <span className="text-white font-bold text-xl">3</span>
                     </div>
                     <div>
-                      <h3 className="text-3xl font-bold text-stone-900 mb-2">Steam Generation</h3>
-                      <p className="text-stone-600 text-lg">The heated transfer medium is circulated to heat exchanger to generate industrial-grade steam at the exact specifications needed for your processes. The system seamlessly integrates with existing infrastructure, reducing fuel consumption by up to 50%.</p>
+                      <h3 className="text-3xl font-bold text-stone-900 mb-2">
+                        Steam Generation
+                      </h3>
+                      <p className="text-stone-600 text-lg">
+                        The heated transfer medium is circulated to heat
+                        exchanger to generate industrial-grade steam at the
+                        exact specifications needed for your processes. The
+                        system seamlessly integrates with existing
+                        infrastructure, reducing fuel consumption by up to 50%.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -230,27 +344,51 @@ function App() {
                   className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.parentElement!.innerHTML = '<div class="w-full aspect-video flex items-center justify-center bg-gradient-to-br from-orange-500/20 to-stone-400"><p class="text-stone-600 text-center p-4">Steam Generation Image</p></div>';
+                    target.parentElement!.innerHTML =
+                      '<div class="w-full aspect-video flex items-center justify-center bg-gradient-to-br from-orange-500/20 to-stone-400"><p class="text-stone-600 text-center p-4">Steam Generation Image</p></div>';
                   }}
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              {/* ✅ CHANGED: custom video player with thumbnail + play/pause toggle */}
               <div className="relative group overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-stone-900">
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 to-orange-600/0 group-hover:from-orange-500/10 group-hover:to-orange-600/10 transition-all z-10"></div>
+
                 <video
+                  ref={videoRef}
                   src={config.videos.technologyDemo}
-                  className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
-                  controls
+                  // ✅ IMPORTANT: Add this poster path in config.ts:
+                  // images: { technologyVideoPoster: "/video-poster.jpg", ... }
+                  poster={config.images.technologyVideoPoster}
+                  className="w-full aspect-video object-cover"
+                  preload="metadata"
+                  playsInline
+                  controls={false} // ✅ hide default controls
                   controlsList="nodownload"
+                  onPlay={() => setIsVideoPlaying(true)}
+                  onPause={() => setIsVideoPlaying(false)}
+                  onEnded={() => setIsVideoPlaying(false)}
                 />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="bg-orange-500 rounded-full p-4 group-hover:scale-110 transition-transform">
-                    <Play className="w-8 h-8 text-white fill-white" />
-                  </div>
+
+                {/* ✅ CHANGED: clickable button overlay */}
+                <div className="absolute inset-0 flex items-center justify-center z-20">
+                  <button
+                    type="button"
+                    onClick={toggleVideoPlay}
+                    className="bg-orange-500 hover:bg-orange-600 rounded-full p-4 shadow-xl transition-transform group-hover:scale-110"
+                    aria-label={isVideoPlaying ? 'Pause video' : 'Play video'}
+                  >
+                    {isVideoPlaying ? (
+                      <Pause className="w-8 h-8 text-white fill-white" />
+                    ) : (
+                      <Play className="w-8 h-8 text-white fill-white" />
+                    )}
+                  </button>
                 </div>
               </div>
+
               <div className="space-y-6">
                 <div className="bg-white rounded-3xl p-8 shadow-lg border border-stone-200 hover:border-orange-300 transition-colors">
                   <div className="flex items-start gap-4 mb-4">
@@ -258,8 +396,16 @@ function App() {
                       <span className="text-white font-bold text-xl">4</span>
                     </div>
                     <div>
-                      <h3 className="text-3xl font-bold text-stone-900 mb-2">Technology in Action</h3>
-                      <p className="text-stone-600 text-lg">Watch our revolutionary solar concentrator technology in action. See how the air-based structure proves to be an easy to deploy & operates system in real industrial environments, delivering consistent, clean heat with zero emissions and maximum cost savings.</p>
+                      <h3 className="text-3xl font-bold text-stone-900 mb-2">
+                        Technology in Action
+                      </h3>
+                      <p className="text-stone-600 text-lg">
+                        Watch our revolutionary solar concentrator technology in
+                        action. See how the air-based structure proves to be an
+                        easy to deploy & operates system in real industrial
+                        environments, delivering consistent, clean heat with
+                        zero emissions and maximum cost savings.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -270,19 +416,33 @@ function App() {
           <div className="bg-gradient-to-br from-stone-900 to-black rounded-3xl p-12 relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl"></div>
             <div className="relative z-10">
-              <h3 className="text-3xl font-bold text-white mb-4">Why Air-Based Technology?</h3>
+              <h3 className="text-3xl font-bold text-white mb-4">
+                Why Air-Based Technology?
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                  <h4 className="text-xl font-bold text-orange-400 mb-2">Ultra-Lightweight</h4>
-                  <p className="text-stone-300">Air filled structure reduces installation costs and time</p>
+                  <h4 className="text-xl font-bold text-orange-400 mb-2">
+                    Ultra-Lightweight
+                  </h4>
+                  <p className="text-stone-300">
+                    Air filled structure reduces installation costs and time
+                  </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                  <h4 className="text-xl font-bold text-orange-400 mb-2">Scalable</h4>
-                  <p className="text-stone-300">Easily add capacity as your industrial heat needs grow</p>
+                  <h4 className="text-xl font-bold text-orange-400 mb-2">
+                    Scalable
+                  </h4>
+                  <p className="text-stone-300">
+                    Easily add capacity as your industrial heat needs grow
+                  </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                  <h4 className="text-xl font-bold text-orange-400 mb-2">Cost-Effective</h4>
-                  <p className="text-stone-300">Beats the unit economics of coal for heat generation</p>
+                  <h4 className="text-xl font-bold text-orange-400 mb-2">
+                    Cost-Effective
+                  </h4>
+                  <p className="text-stone-300">
+                    Beats the unit economics of coal for heat generation
+                  </p>
                 </div>
               </div>
             </div>
@@ -290,16 +450,26 @@ function App() {
         </div>
       </section>
 
-      <section id="assessment" className="min-h-screen py-20 bg-gradient-to-b from-stone-50 to-white relative overflow-hidden">
+      {/* ----------- Rest of your code below remains unchanged ----------- */}
+      {/* NOTE: I kept your remaining sections identical to avoid breaking layout. */}
+
+      <section
+        id="assessment"
+        className="min-h-screen py-20 bg-gradient-to-b from-stone-50 to-white relative overflow-hidden"
+      >
         <div className="absolute bottom-20 left-10 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
 
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold text-stone-900 mb-6">
-              Free Energy <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">Savings Assessment</span>
+              Free Energy{' '}
+              <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+                Savings Assessment
+              </span>
             </h2>
             <p className="text-xl text-stone-600 max-w-3xl mx-auto">
-              Discover how much you can save by switching to solar industrial heat. Book your 1 complimentary assessment today.
+              Discover how much you can save by switching to solar industrial
+              heat. Book your 1 complimentary assessment today.
             </p>
           </div>
 
@@ -309,27 +479,37 @@ function App() {
             <div className="relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                 <div className="text-center p-6 bg-stone-50 rounded-2xl">
-                  <div className="text-4xl font-bold text-orange-500 mb-2">Free</div>
+                  <div className="text-4xl font-bold text-orange-500 mb-2">
+                    Free
+                  </div>
                   <div className="text-stone-600">No Cost Assessment</div>
                 </div>
                 <div className="text-center p-6 bg-stone-50 rounded-2xl">
-                  <div className="text-4xl font-bold text-orange-500 mb-2">24h</div>
+                  <div className="text-4xl font-bold text-orange-500 mb-2">
+                    24h
+                  </div>
                   <div className="text-stone-600">Quick Response Time</div>
                 </div>
                 <div className="text-center p-6 bg-stone-50 rounded-2xl">
-                  <div className="text-4xl font-bold text-orange-500 mb-2">50%</div>
+                  <div className="text-4xl font-bold text-orange-500 mb-2">
+                    50%
+                  </div>
                   <div className="text-stone-600">Yearly Fuel Savings</div>
                 </div>
               </div>
 
               <div className="bg-gradient-to-br from-stone-900 to-black rounded-2xl p-8 mb-8">
-                <h3 className="text-2xl font-bold text-white mb-4">What's Included:</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  What's Included:
+                </h3>
                 <ul className="space-y-3 text-stone-300">
                   <li className="flex items-center gap-3">
                     <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-sm">✓</span>
                     </div>
-                    <span>Detailed analysis of your current energy consumption</span>
+                    <span>
+                      Detailed analysis of your current energy consumption
+                    </span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -341,7 +521,9 @@ function App() {
                     <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-sm">✓</span>
                     </div>
-                    <span>Custom Savings plan on adopting solar heat system</span>
+                    <span>
+                      Custom Savings plan on adopting solar heat system
+                    </span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -371,23 +553,31 @@ function App() {
               </a>
 
               <p className="text-center text-stone-500 mt-6 text-sm">
-                Fill out a quick form with your facility details and we'll get back to you within 24 hours
+                Fill out a quick form with your facility details and we'll get
+                back to you within 24 hours
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="min-h-screen py-20 bg-gradient-to-b from-white to-stone-100 relative overflow-hidden">
+      <section
+        id="contact"
+        className="min-h-screen py-20 bg-gradient-to-b from-white to-stone-100 relative overflow-hidden"
+      >
         <div className="absolute top-20 right-20 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
 
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold text-stone-900 mb-6">
-              Get In <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">Touch</span>
+              Get In{' '}
+              <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+                Touch
+              </span>
             </h2>
             <p className="text-xl text-stone-600 max-w-3xl mx-auto">
-              Ready to transform your industrial heat system? Let's discuss your energy needs.
+              Ready to transform your industrial heat system? Let's discuss your
+              energy needs.
             </p>
           </div>
 
@@ -397,7 +587,9 @@ function App() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/20 rounded-full blur-2xl"></div>
 
                 <div className="relative z-10">
-                  <h3 className="text-3xl font-bold text-white mb-8">Visit Our Office</h3>
+                  <h3 className="text-3xl font-bold text-white mb-8">
+                    Visit Our Office
+                  </h3>
 
                   <div className="space-y-6">
                     <div className="flex items-start gap-4">
@@ -405,8 +597,13 @@ function App() {
                         <MapPin className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-white mb-1">Address</h4>
-                        <p className="text-stone-300">Hartron, Plot No-1, UV Phase-I, Dundahera, Gurugram, Haryana 122016</p>
+                        <h4 className="text-lg font-bold text-white mb-1">
+                          Address
+                        </h4>
+                        <p className="text-stone-300">
+                          Hartron, Plot No-1, UV Phase-I, Dundahera, Gurugram,
+                          Haryana 122016
+                        </p>
                       </div>
                     </div>
 
@@ -415,7 +612,9 @@ function App() {
                         <Mail className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-white mb-1">Email</h4>
+                        <h4 className="text-lg font-bold text-white mb-1">
+                          Email
+                        </h4>
                         <p className="text-stone-300">info@ellipsol.com</p>
                       </div>
                     </div>
@@ -425,8 +624,14 @@ function App() {
                         <Phone className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-white mb-1">Phone</h4>
-                        <p className="text-stone-300">+91 999 982 6529<br />+91 098 765 4321</p>
+                        <h4 className="text-lg font-bold text-white mb-1">
+                          Phone
+                        </h4>
+                        <p className="text-stone-300">
+                          +91 999 982 6529
+                          <br />
+                          +91 098 765 4321
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -434,7 +639,9 @@ function App() {
               </div>
 
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-stone-200">
-                <h3 className="text-2xl font-bold text-stone-900 mb-4">Office Hours</h3>
+                <h3 className="text-2xl font-bold text-stone-900 mb-4">
+                  Office Hours
+                </h3>
                 <div className="space-y-3 text-stone-600">
                   <div className="flex justify-between py-2 border-b border-stone-200">
                     <span>Monday - Friday</span>
@@ -454,7 +661,9 @@ function App() {
 
             <div className="space-y-6">
               <div className="bg-white rounded-3xl p-10 shadow-lg border border-stone-200">
-                <h3 className="text-2xl font-bold text-stone-900 mb-6">Schedule your Energy Audit</h3>
+                <h3 className="text-2xl font-bold text-stone-900 mb-6">
+                  Schedule your Energy Audit
+                </h3>
 
                 <div className="space-y-4">
                   <a
@@ -465,8 +674,12 @@ function App() {
                   >
                     <div className="flex items-center justify-between">
                       <div className="text-left">
-                        <div className="font-bold text-xl mb-1">In-Person Meeting</div>
-                        <div className="text-orange-100 text-sm">Visit us at our office</div>
+                        <div className="font-bold text-xl mb-1">
+                          In-Person Meeting
+                        </div>
+                        <div className="text-orange-100 text-sm">
+                          Visit us at our office
+                        </div>
                       </div>
                       <Calendar className="w-8 h-8 group-hover:scale-110 transition-transform" />
                     </div>
@@ -480,8 +693,12 @@ function App() {
                   >
                     <div className="flex items-center justify-between">
                       <div className="text-left">
-                        <div className="font-bold text-xl mb-1">Virtual Meeting</div>
-                        <div className="text-stone-600 text-sm">Connect via video call</div>
+                        <div className="font-bold text-xl mb-1">
+                          Virtual Meeting
+                        </div>
+                        <div className="text-stone-600 text-sm">
+                          Connect via video call
+                        </div>
                       </div>
                       <Calendar className="w-8 h-8 group-hover:scale-110 transition-transform" />
                     </div>
@@ -489,7 +706,9 @@ function App() {
                 </div>
 
                 <div className="mt-8 p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl border border-orange-200">
-                  <h4 className="font-bold text-stone-900 mb-2">Why Schedule an Audit?</h4>
+                  <h4 className="font-bold text-stone-900 mb-2">
+                    Why Schedule an Audit?
+                  </h4>
                   <ul className="space-y-2 text-sm text-stone-700">
                     <li className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
@@ -514,8 +733,12 @@ function App() {
               <div className="bg-gradient-to-br from-stone-900 to-black rounded-3xl p-8 relative overflow-hidden">
                 <div className="absolute bottom-0 right-0 w-48 h-48 bg-orange-500/20 rounded-full blur-2xl"></div>
                 <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-white mb-4">Ready to Slash Your Energy Costs?</h3>
-                  <p className="text-stone-300 mb-6">Join hundreds of industries already saving with solar heat.</p>
+                  <h3 className="text-xl font-bold text-white mb-4">
+                    Ready to Slash Your Energy Costs?
+                  </h3>
+                  <p className="text-stone-300 mb-6">
+                    Join hundreds of industries already saving with solar heat.
+                  </p>
                   <button
                     onClick={() => scrollToSection('assessment')}
                     className="w-full py-4 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-colors"
@@ -535,18 +758,51 @@ function App() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Sun className="w-6 h-6 text-orange-500" />
-                <span className="text-lg font-bold">Ellipsol<span className="text-orange-500">.</span></span>
+                <span className="text-lg font-bold">
+                  Ellipsol<span className="text-orange-500">.</span>
+                </span>
               </div>
-              <p className="text-stone-400 text-sm">Ultra-low cost industrial heat powered by air-based solar concentrator technology.</p>
+              <p className="text-stone-400 text-sm">
+                Ultra-low cost industrial heat powered by air-based solar
+                concentrator technology.
+              </p>
             </div>
 
             <div>
               <h4 className="font-bold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-stone-400 text-sm">
-                <li><button onClick={() => scrollToSection('home')} className="hover:text-orange-500 transition-colors">Home</button></li>
-                <li><button onClick={() => scrollToSection('technology')} className="hover:text-orange-500 transition-colors">Technology</button></li>
-                <li><button onClick={() => scrollToSection('assessment')} className="hover:text-orange-500 transition-colors">Assessment</button></li>
-                <li><button onClick={() => scrollToSection('contact')} className="hover:text-orange-500 transition-colors">Contact</button></li>
+                <li>
+                  <button
+                    onClick={() => scrollToSection('home')}
+                    className="hover:text-orange-500 transition-colors"
+                  >
+                    Home
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollToSection('technology')}
+                    className="hover:text-orange-500 transition-colors"
+                  >
+                    Technology
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollToSection('assessment')}
+                    className="hover:text-orange-500 transition-colors"
+                  >
+                    Assessment
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollToSection('contact')}
+                    className="hover:text-orange-500 transition-colors"
+                  >
+                    Contact
+                  </button>
+                </li>
               </ul>
             </div>
 
@@ -581,3 +837,4 @@ function App() {
 }
 
 export default App;
+
