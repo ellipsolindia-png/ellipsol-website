@@ -757,7 +757,16 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <Sun className="w-6 h-6 text-orange-500" />
+                <img
+                src="/logo.png"
+                alt="Ellipsol Logo"
+                className="h-8 w-auto object-contain"
+                onError={(e) => {
+                  // If logo missing, hide image to avoid broken icon
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+              />
                 <span className="text-lg font-bold">
                   Ellipsol<span className="text-orange-500">.</span>
                 </span>
