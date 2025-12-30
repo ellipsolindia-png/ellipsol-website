@@ -5,6 +5,7 @@ export const config = {
     steamGeneration: '/images/steam-generation.jpg',
     heroBackground: '/images/hero-background.jpg',
     technologyBackground: '/images/technology-background.jpg',
+    technologyVideoPoster: '/images/technology-video-poster.jpg',
   },
   videos: {
     technologyDemo: '/videos/technology-demo.mp4',
